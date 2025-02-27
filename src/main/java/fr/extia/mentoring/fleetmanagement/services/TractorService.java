@@ -2,6 +2,7 @@ package fr.extia.mentoring.fleetmanagement.services;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import fr.extia.mentoring.fleetmanagement.entities.LoadLevel;
@@ -28,9 +29,37 @@ public class TractorService {
                 .orElseThrow(() -> new NotFoundException(
                         "No tractor found for ID: %S".formatted(id)));
     }
-    
-    public List<Tractor> findByPower(LoadLevel power){
+
+    public List<Tractor> findByPower(LoadLevel power) {
         return tractorRepository.findByPower(power);
+    }
+
+    public Tractor create(Tractor tractor) {
+        return tractorRepository.save(tractor);
+    }
+
+    public Tractor update(Tractor paramTractor) {
+        if (null == paramTractor.getId()) {
+            throw new IllegalArgumentException("No ID provided to update tractor: %s".formatted(paramTractor));
+        }
+
+        Tractor existingTractor = tractorRepository
+                .findById(paramTractor.getId())
+                .orElseThrow(() -> new NotFoundException("No tractor ID exists for tractor: %s".formatted(paramTractor)));
+
+        if (StringUtils.isNotBlank(paramTractor.getName())) {
+            existingTractor.setName(paramTractor.getName());
+        }
+
+        if (null != paramTractor.getPower()) {
+            existingTractor.setPower(paramTractor.getPower());
+        }
+
+        return tractorRepository.save(existingTractor);
+    }
+    
+    public void delete(Long id) {
+        tractorRepository.deleteById(id);
     }
 
 }

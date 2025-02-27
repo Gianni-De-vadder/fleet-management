@@ -44,4 +44,9 @@ public class Tractor {
     public void setPower(LoadLevel power) {
         this.power = power;
     }
+
+    @Override
+    public String toString() {
+        return "Tractor [id=" + id + ", name=" + name + ", power=" + power + "]";
+    }
 }
