@@ -124,13 +124,13 @@ class TractorServiceTest {
 
     @ParameterizedTest
     @MethodSource("updateParameters")
-    @Disabled
     void testUpdateIsOk(Tractor paramTractor, Tractor databaseTractor, Tractor expectedSavedTractor) {
         // Given
+    	Tractor databaseCopy = new Tractor(databaseTractor);
+    	
         when(tractorRepositoryMock.findById(anyLong()))
-                .thenReturn(Optional.of(databaseTractor));
+                .thenReturn(Optional.of(databaseCopy));
         when(tractorRepositoryMock.save(any(Tractor.class)))
-        // FIXME: do not return the argument directly but rather a new reference
                 .thenAnswer(call -> call.getArgument(0, Tractor.class));
 
         // When

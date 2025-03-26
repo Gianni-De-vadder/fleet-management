@@ -22,6 +22,16 @@ public class Tractor {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private LoadLevel power;
+    
+    public Tractor() {
+    	
+    }
+    
+    public Tractor(Tractor original) {
+    	this.id = original.getId();
+    	this.name=original.getName();
+    	this.power=original.getPower();
+    }
 
     public Long getId() {
         return id;
