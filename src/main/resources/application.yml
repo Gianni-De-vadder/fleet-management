@@ -15,3 +15,13 @@ spring:
   jackson:
     mapper:
       accept-case-insensitive-enums: true
+management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+springdoc:
+    api-docs:
+      enabled: true
+    swagger-ui:
+      path: /swagger-ui.html
