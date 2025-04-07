@@ -1,9 +1,20 @@
 package fr.extia.mentoring.fleetmanagement.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
 @Entity(name = "Drivers")
 public class Driver {
@@ -17,7 +28,7 @@ public class Driver {
     @ElementCollection(targetClass = DangerType.class)
     @CollectionTable(name = "driver_authorizations", joinColumns = @JoinColumn(name = "driver_id"))
     @Enumerated(EnumType.STRING)
-    private List<DangerType> authorizations = new ArrayList<>();
+    private Set<DangerType> authorizations = new HashSet<>();
 
     public Driver() {
     }
@@ -43,17 +54,17 @@ public class Driver {
         this.name = name;
     }
 
-    public List<DangerType> getAuthorizations() {
+    public Set<DangerType> getAuthorizations() {
         return authorizations;
     }
 
-    public void setAuthorizations(List<DangerType> authorizations) {
+    public void setAuthorizations(Set<DangerType> authorizations) {
         this.authorizations = authorizations;
     }
 
     public void addAuthorization(DangerType authorization) {
         if (authorizations == null) {
-            authorizations = new ArrayList<>();
+            authorizations = new HashSet<>();
         }
         authorizations.add(authorization);
     }

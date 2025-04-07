@@ -1,8 +1,11 @@
 package fr.extia.mentoring.fleetmanagement.services;
 
+import java.util.Collection;
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
 import fr.extia.mentoring.fleetmanagement.entities.DangerType;
 import fr.extia.mentoring.fleetmanagement.entities.Driver;
 import fr.extia.mentoring.fleetmanagement.errors.NotFoundException;
@@ -58,5 +61,11 @@ public class DriverService {
 
     public List<Driver> findByAuthorization(DangerType dangerType) {
         return driverRepository.findByAuthorizationsContaining(dangerType);
+    }
+    
+    public Driver addAuthorizations(Long driverId, Collection<DangerType> authorizations) {
+    	Driver driver = findById(driverId);
+    	authorizations.forEach(driver.getAuthorizations()::add);
+    	return driverRepository.save(driver);
     }
 }
