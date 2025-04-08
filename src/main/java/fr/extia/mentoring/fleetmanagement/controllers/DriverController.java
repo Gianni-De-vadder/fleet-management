@@ -61,4 +61,14 @@ public class DriverController {
 		
 		return driverService.addAuthorizations(driverId, authorizations);
 	}
+	@DeleteMapping("/{driverId}/authorizations")
+	public Driver removeAuthorizations(@PathVariable Long driverId, @RequestBody List<String> strAuthorizations) {
+		List<DangerType> authorizations = strAuthorizations
+				.stream()
+				.map(DangerType::fromValue)
+				.toList();
+
+		return driverService.removeAuthorizations(driverId, authorizations);
+	}
+
 }

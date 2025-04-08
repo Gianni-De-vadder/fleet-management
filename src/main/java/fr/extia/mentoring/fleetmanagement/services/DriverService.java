@@ -68,4 +68,10 @@ public class DriverService {
     	authorizations.forEach(driver.getAuthorizations()::add);
     	return driverRepository.save(driver);
     }
+    public Driver removeAuthorizations(Long driverId, Collection<DangerType> authorizationsToRemove) {
+        Driver driver = findById(driverId);
+        authorizationsToRemove.forEach(driver.getAuthorizations()::remove);
+        return driverRepository.save(driver);
+    }
+
 }

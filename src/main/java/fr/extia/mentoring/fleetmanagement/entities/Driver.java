@@ -1,8 +1,6 @@
 package fr.extia.mentoring.fleetmanagement.entities;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CollectionTable;
@@ -68,4 +66,10 @@ public class Driver {
         }
         authorizations.add(authorization);
     }
+    public void removeAuthorization(DangerType authorization) {
+        if (authorizations != null) {
+            authorizations.remove(authorization);
+        }
+    }
+
 }
