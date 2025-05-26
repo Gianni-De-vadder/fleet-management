@@ -1,5 +1,6 @@
 package fr.extia.mentoring.fleetmanagement.errors;
 
+
 public class NotFoundException extends RuntimeException{
 
     public NotFoundException() {
